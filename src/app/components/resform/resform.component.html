@@ -1,0 +1,154 @@
+<div class="container">
+      <div class="text-center">
+        <br>
+        <img src="assets/img/logo.png" alt="image">
+        <br><br><br><h1>طلب زيارة معرض</h1>
+        <p class="lead">برجاء ملىء البيانات المطلوبة</p>
+      </div><br><br><br><br>
+
+
+      <!-- (ngSubmit)="onFormSubmit(signupForm)" -->
+      <form novalidate  #signupForm="ngForm">
+
+        <h4 class="container text-center">المعرض المراد زيارته</h4>
+
+        <div class="col-md-12 mb-3">
+
+          <select [(ngModel)]="slectedfair" (change)="getdates($event)" class="custom-select d-block w-100" id="fairname" name="faireslist" #fairname = "ngModel" required>
+              <option value="">قائمة المعارض</option>
+              <option *ngFor="let slectedfair of fiarobs | async" >{{slectedfair.fairName}}</option>
+            </select>
+
+              <div *ngIf = "fairname?.errors" class="alert alert-danger text-right">برجاء اختيار المعرض</div>
+
+          </div><br>
+
+
+
+          <div class="col-md-12 mb-3  text-right" dir="ltr">
+
+            <h5 for="address">اليوم المناسب للزيارة:</h5>
+
+            <p-calendar [(ngModel)]="slecteddate" name="fairdates" (click)="getperiods($event)" [minDate]="mindate" [maxDate]="maxdate"
+            [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [disabledDays]="[5,6]" [locale]="en" id="datepicker" name="datepicker" #datepicker = "ngModel" required></p-calendar>
+
+            <div *ngIf = "datepicker.errors && datepicker.touched" class="alert alert-danger text-right">برجاء اختيار اليوم</div>
+
+          </div>
+
+
+
+
+
+            <h5 class="container text-right">الوقت المناسب للزيارة:</h5>
+            <div class="col-md-12 mb-3 text-right">
+                <select class="custom-select d-block w-100" [(ngModel)]="slectedinterval" id="dateperiod" name="dateperiods" #dateperiod = "ngModel" required>
+                  <option value="">اختر الوقت</option>
+                  <option *ngFor="let slectedperiod of periodobs | async" >{{slectedperiod.period}}</option>
+                </select>
+                <div *ngIf = "dateperiod.errors && dateperiod.touched" class="alert alert-danger text-right">برجاء اختيار الفترة</div>
+              </div><br><br>
+
+
+
+
+
+
+        <div class="col-md-12 order-md-1">
+          <h4 class="text-center">معلومات المدرسة الراغبة في الزيارة</h4>
+
+            <div class="col-md-12 mb-3 text-right">
+              <h5 for="address">اسم المدرسة:</h5>
+              <input type="text" class="form-control" pattern="[a-b ا-ي]{2,40}$" placeholder="برجاء ادخال اسم المدرسة" [(ngModel)]="selectedSchoolName"
+               id="schoolName" name="schoolName" #schoolName = "ngModel"   required>
+              <div *ngIf = "schoolName.errors && schoolName.touched" class="alert alert-danger text-right">برجاء ادخال اسم المدرسة</div>
+            </div><br>
+
+
+
+            <h5 class="container text-right">المرحلة الدراسية:</h5>
+            <div class="col-md-12 mb-3 text-right">
+                <select class="custom-select d-block w-100"  [(ngModel)]="selectedEDULevel" id="edulevel" name="edulevel" #edulevel = "ngModel" required >
+                  <option value="">قائمة المراحل</option>
+                  <option>المرحلة الابتدائية(المراحل العليا فقط)</option>
+                  <option>المرحلة المتوسطة</option>
+                  <option>المرحلة الثانوية</option>
+                </select>
+
+                <div *ngIf = "edulevel.errors && edulevel.touched" class="alert alert-danger text-right">برجاء اختيار المرحلة</div>
+              </div><br>
+
+
+            <h5 class="container text-right">المكتب الذي تتبع له المدرسة :</h5>
+            <div class="col-md-12 mb-3 text-right">
+                <select class="custom-select d-block w-100"  [(ngModel)]="selectedOffice" id="officeList" name="officeList" #officeList = "ngModel" required>
+                  <option value="">قائمة المكاتب</option>
+                  <option>السويدي</option>
+                  <option>الغرب</option>
+                  <option>الجنوب</option>
+                  <option>العزيزية</option>
+                  <option>قرطبة</option>
+                  <option>الشمال</option>
+                  <option>الشرق</option>
+                  <option>الوسط</option>
+                  <option>الروابي</option>
+                  <option>الدرعية</option>
+                  <option>الروضة</option>
+                  <option>الرائد</option>
+                </select>
+                <div *ngIf = "officeList.errors && officeList.touched" class="alert alert-danger text-right">برجاء اختيار المكتب</div>
+
+              </div><br>
+
+
+              <div class="col-md-12 mb-3 text-right">
+
+                <h5 for="address">رقم هاتف المدرسة:</h5>
+
+                <input type="text" class="form-control" id="address" placeholder="يبدأ الرقم بـ 011" [(ngModel)]="selectedSchoolPhone"
+                  id="schoolPhone" name="schoolPhone" #schoolPhone = "ngModel" pattern="[0]+[1]+[1]+[0-9]{7}$" required>
+
+                <div *ngIf = "schoolPhone.errors && schoolPhone.touched" class="alert alert-danger text-right">برجاء إدخال رقم صحيح "مثال: 0114123456"</div>
+
+                </div><br><br>
+
+              <h4 class="text-center">معلومات المشرف على الزيارة</h4> <br>
+
+              <div class="col-md-12 mb-3 text-right">
+                  <h5 for="address">اسم المشرف المرافق للطلاب:</h5>
+
+                  <input type="text" class="form-control" placeholder="اسم المشرف الثلاثي" [(ngModel)]="selectedSupervisor" pattern="[a-b ا-ي]{2,40}$"
+                   id="supervisor" name="supervisor" #supervisor = "ngModel"  required>
+                  <div *ngIf = "supervisor.errors && supervisor.touched" class="alert alert-danger text-right">برجاء ادخال اسم المشرف</div>
+
+                </div><br>
+
+
+                <div class="col-md-12 mb-3 text-right">
+                    <h5 for="address">رقم جوال المشرف المرافق للطلاب:</h5>
+                    <input type="text" class="form-control" placeholder="يجب أن يكون الرقم بهذا الشكل *********966" [(ngModel)]="selectedSupervisorPhone"
+                     id="supervisorPhone" name="supervisorPhone" #supervisorPhone = "ngModel" pattern="[9]+[6]+[6]+[5]+[0-9]{8}$"  required>
+                    <div *ngIf = "supervisorPhone.errors && supervisorPhone.touched" class="alert alert-danger text-right">برجاء إدخال رقم صحيح "مثال: 96650123456789"</div>
+                  </div><br>
+
+
+                  <div class="col-md-12 mb-3 text-right">
+
+                    <h5 for="address">عدد الطلاب:</h5>
+
+                    <input type="number" [(ngModel)]="selectedStudentsNumber" min="1" max="20" class="form-control" placeholder="اقصى عدد للطلاب المسموح لهم بالزيارة 20 طالب"
+                     id="studentsNumber" name="studentsNumber" #studentsNumber = "ngModel"  required>
+
+                    <div *ngIf="studentsNumber.errors && studentsNumber.touched" class="alert alert-danger text-right">برجاء ادخال رقم مناسب</div>
+
+                    </div><br>
+
+
+                      <button (click)="AddReservation()" class="btn btn-primary btn-lg btn-block" routerLink="conf" type="submit" [disabled]="!signupForm.form.valid">تأكيد</button></div><br>
+
+                  </form>
+
+
+                  <hr class="mb-4">
+                  <p style="font-size:80%;" class="text-muted text-center text-small align-bottom">&copy; مكتب التربية و التعليم بالروضة</p>
+</div>

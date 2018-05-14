@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBpjxnYEDJg36Msc2C1wSN0O-fmrozgjV4',
+    authDomain: 'fairbooking-200319.firebaseapp.com',
+    databaseURL: 'https://fairbooking-200319.firebaseio.com',
+    projectId: 'fairbooking-200319',
+    storageBucket: '',
+    messagingSenderId: '416031461015'
+  }
 };
